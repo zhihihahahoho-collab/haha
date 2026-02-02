@@ -88,21 +88,24 @@ function renderProducts(data) {
         return;
     }
 
-    data.forEach(p => {
-        const imageUrl = IMAGE_BASE + p.imageUrl;
+data.forEach(p => {
+    const imagePath = p.imageUrl || p.images?.[0];
+    const imageUrl  = IMAGE_BASE + imagePath;
 
-        const card = document.createElement("div");
-        card.className = "product-card";
-        card.innerHTML = `
-            <a href="product-detail.html?id=${p.productId}">
-                <img src="${imageUrl}" alt="${p.productName}">
-                <h3>${p.productName}</h3>
-                <p>${Number(p.price).toLocaleString()} đ</p>
-            </a>
-        `;
-        list.appendChild(card);
-    });
-}
+    const card = document.createElement("div");
+    card.className = "product-card";
+    card.innerHTML = `
+        <a href="product-detail.html?id=${p.productId}">
+            <img src="${imageUrl}" alt="${p.productName}">
+            <h3>${p.productName}</h3>
+            <p>${Number(p.price).toLocaleString()} đ</p>
+        </a>
+    `;
+    list.appendChild(card);
+});
+
+
+
 
 
 
@@ -130,4 +133,5 @@ function loadDbSpace() {
 
 
 // ===== LOAD LẦN ĐẦU =====
+
 loadAllProducts();
