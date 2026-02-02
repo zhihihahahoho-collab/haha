@@ -60,23 +60,25 @@ function renderDetail(p) {
     thumbList.innerHTML = "";
 
     // ===== MAIN IMAGE =====
-    if (p.images && p.images.length > 0) {
+    if (Array.isArray(p.images) && p.images.length > 0) {
         mainImage.src = IMAGE_BASE + p.images[0];
+
+        // ===== THUMBNAILS =====
+        p.images.forEach(img => {
+            const thumb = document.createElement("img");
+            thumb.src = IMAGE_BASE + img;
+
+            thumb.onclick = () => {
+                mainImage.src = thumb.src;
+            };
+
+            thumbList.appendChild(thumb);
+        });
+
     } else {
         mainImage.src = IMAGE_BASE + "/images/no-image.jpg";
-        return;
     }
-
-    // ===== THUMBNAILS =====
-    p.images.forEach(img => {
-        const thumb = document.createElement("img");
-        thumb.src = IMAGE_BASE + img;
-
-        thumb.onclick = () => {
-            mainImage.src = thumb.src;
-        };
-
-        thumbList.appendChild(thumb);
-    });
 }
+
+
 
